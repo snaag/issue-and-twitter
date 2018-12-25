@@ -4,7 +4,7 @@
 ### Virtual Environment
 * hisTt
   * tweepy `pip install tweepy`
-  * 
+  * konlpy - twitter 
 
 ### Reference site
 * [site 1](https://medium.freecodecamp.org/creating-a-twitter-bot-in-python-with-tweepy-ac524157a607)

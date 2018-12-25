@@ -1,12 +1,15 @@
-from konlpy.tag import Twitter
+from konlpy.tag import Okt
 import tweepy 
 
-twitter = Twitter()
+twitter = Okt()
+
 # 변수
-max_count = 500
+max_count = 500 # 500
+
 
 # tweet hash dict
 dict_tweet_hash = dict() # {tweet:[favorite_count, retweet_count]}
+dict_morph      = dict() # {morph:count}
 
 # API key 설정
 consumer_key = '#'
@@ -43,12 +46,24 @@ for tweet in tweepy.Cursor(api.search,
 		pass
 	else:
 		dict_tweet_hash[tweet.text] = [tweet.favorite_count, tweet.retweet_count]
-		count+=1
-		# print(str(count),"->",tweet.text," & like: ", tweet.retweet_count)
+
 
 # dict_tweet_hash print
 for key, value in dict_tweet_hash.items():
-	print(key, value)
+#    print(key, value)
+#    print(twitter.morphs(key))
+    morphs = twitter.nouns(key)
+    for morph in morphs:
+        if morph in dict_morph:
+            dict_morph[morph] = dict_morph[morph] + 1
+        else:
+            dict_morph[morph] = 1
+
+# 큰 값이 먼저 오도록 정리
+sorted_list = sorted(dict_morph, key=lambda k : dict_morph[k], reverse=True)
+print(sorted_list)
+#for key, value in dict_morph.items():
+#    print(key, value, " *** ", end="")
 
 
 
