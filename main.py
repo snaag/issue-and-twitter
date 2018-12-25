@@ -4,8 +4,8 @@ import tweepy
 twitter = Okt()
 
 # 변수
-max_count = 500 # 500
-
+max_count = 1000 # 500
+sentence = 1
 
 # tweet hash dict
 dict_tweet_hash = dict() # {tweet:[favorite_count, retweet_count]}
@@ -37,7 +37,6 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 
 # keyword와 관련된 문장을 크롤링한다
 keyword = '홍대입구'
-count = 0
 for tweet in tweepy.Cursor(api.search,
 							q=keyword,
 							result_type='recent',
@@ -46,7 +45,6 @@ for tweet in tweepy.Cursor(api.search,
 		pass
 	else:
 		dict_tweet_hash[tweet.text] = [tweet.favorite_count, tweet.retweet_count]
-
 
 # dict_tweet_hash print
 for key, value in dict_tweet_hash.items():
@@ -62,6 +60,7 @@ for key, value in dict_tweet_hash.items():
 # 큰 값이 먼저 오도록 정리
 sorted_list = sorted(dict_morph, key=lambda k : dict_morph[k], reverse=True)
 print(sorted_list)
+print(str(sentence))
 #for key, value in dict_morph.items():
 #    print(key, value, " *** ", end="")
 
